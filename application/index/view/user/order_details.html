@@ -1,0 +1,76 @@
+{include file="common/header" /}
+
+</div><!--pntRight/-->
+<div class="clears"></div>
+</div><!--pnt/-->
+<div class="positions">
+    当前位置：<a href="/index.html">首页</a> &gt; <a href="{:url('user/index')}">{:__('Member center')}</a>
+    &gt; <a href="{:url('user/order')}" class="posCur" name="del">{:__('我的订单')}</a>
+</div><!--positions/-->
+<div class="cont">
+    <div class="contLeft" id="contLeft">
+        <h3 class="leftTitle">会员中心</h3>
+        <dl class="helpNav vipNav">
+            <dt>我的主页</dt>
+            <dd>
+                <a href="{:url('user/index')}">{:__('User center')}</a>
+                <a href="{:url('user/order')}" class="vipCur">{:__('我的订单')}</a>
+            </dd>
+            <dt>账户设置</dt>
+            <dd>
+                <a href="{:url('user/profile')}">{:__('Profile')}</a>
+                <a href="{:url('user/changepwd')}">{:__('Change password')}</a>
+                <a href="{:url('user/address')}">{:__('收货地址')}</a>
+            </dd>
+            <dt>客户服务</dt>
+            <dd>
+                <a href="vipExit.html">网站使用条款</a>
+                <a href="vipTuihuo.html">网站免责声明</a>
+                <a href="message.html">在线留言</a>
+            </dd>
+        </dl><!--helpNav/-->
+    </div><!--contLeft/-->
+    <div class="contRight">
+        <h2 class="oredrName">
+            订单详情
+        </h2>
+        <table class="orderDeatils">
+            <tr>
+                <th>订单编号</th>
+                <td>{$order_details.order_code}</td>
+            </tr>
+            <tr>
+                <th>商品名称</th>
+                <td>{$order_details.title}</td>
+            </tr>
+            <tr>
+                <th>订单价钱</th>
+                <td>￥{$order_details.price}</td>
+            </tr>
+            <tr>
+                <th>订单信息</th>
+                <td>
+                    {$order_details.userdata}</td>
+            </tr>
+            <tr>
+                <th>商家</th>
+                <td>{$order_details.company}</td>
+            </tr>
+            <tr>
+                <th>支付方式</th>
+                <td>{$order_details.pay_type}</td>
+            </tr>
+            <tr>
+                <th>支付状态</th>
+                {if $order_details.status == '0'}
+                <td><a href="#" id="qxzf" name="{$v.id}">{$order_details.status_type}/取消支付</a></td>
+                {else}
+                <td>{$order_details.status_type}</td>
+                {/if}
+            </tr>
+        </table>
+    </div><!--contRight/-->
+    <div class="clears"></div>
+</div><!--cont/-->
+
+{include file="common/footer" /}

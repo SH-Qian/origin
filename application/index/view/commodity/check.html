@@ -1,0 +1,183 @@
+{include file="common/header" /}
+
+   </div><!--pntRight/-->
+   <div class="clears"></div>
+  </div><!--pnt/-->
+  <div class="positions">
+   当前位置：<a href="/index.html">首页</a> &gt; <a href="#" class="posCur" name="submit">填写核对订单</a>
+  </div><!--positions/-->
+  <div class="cont">
+   <div class="carImg"><img src="/assets/images/car2.jpg" width="961" height="27" /></div>
+   <h4 class="orderTitle">收货地址</h4>
+   <table class="ord">
+    <tr>
+     <td width="30%">
+      <input type="radio" id="user" checked /> {$address.recipient}
+     </td>
+     <td width="50%" id="address" >
+      {$address.city},{$address.address},{$address.mail},{$address.mobile}
+     </td>
+     <td>
+      <span class="green upd">[修改]</span> | <span class="green add">[添加]</span> 
+     </td>
+    </tr>
+   </table><!--ord/-->
+   <div class="address">
+    <div class="addList">
+     <label><span class="red">* </span>选择地区:</label>
+     <select>
+      <option>请选择省</option>
+     </select>
+     <select>
+      <option>请选择市</option>
+     </select>
+     <select>
+      <option>请选择地区</option>
+     </select>
+    </div><!--addList-->
+    <div class="addList">
+     <label><span class="red">* </span>详细地址:</label>
+     <input type="text" />
+    </div><!--addList-->
+    <div class="addList">
+     <label><span class="red">* </span>邮政编码:</label>
+     <input type="text" />
+    </div><!--addList-->
+    <div class="addList">
+     <label><span class="red">* </span>收件人:</label>
+     <input type="text" />
+    </div><!--addList-->
+    <div class="addList">
+     <label><span class="red">* </span>手机号码:</label>
+     <input type="text" /> 或者固定电话 <input type="text" />
+    </div><!--addList--> 
+    <div class="addList2">
+     <input type="image" src="/assets/images/queren.jpg" width="100" height="32" />
+    </div><!--addList2/-->
+   </div><!--address/-->
+   <h4 class="orderTitle">支付方式</h4>
+   <ul class="zhiList">
+   <li>网银支付-借记卡</li>
+   <li>网银支付-信用卡</li>
+   <li>财付通-余额支付</li>
+   <li>支付宝-余额支付</li>
+   <div class="clears"></div>
+  </ul><!--zhiList/-->
+  <div class="zhifufangshi">
+   <ul class="yinhang">
+    <li><input type="radio" /><img src="/assets/images/yin1.gif" /></li>
+    <li><input type="radio" /><img src="/assets/images/yin2.gif" /></li>
+    <li><input type="radio" /><img src="/assets/images/yin3.gif" /></li>
+    <li><input type="radio" /><img src="/assets/images/yin4.gif" /></li>
+    <li><input type="radio" /><img src="/assets/images/yin5.gif" /></li>
+    <li><input type="radio" /><img src="/assets/images/yin6.gif" /></li>
+    <li><input type="radio" /><img src="/assets/images/yin7.gif" /></li>
+    <li><input type="radio" /><img src="/assets/images/yin8.gif" /></li>
+    <li><input type="radio" /><img src="/assets/images/yin9.gif" /></li>
+    <li><input type="radio" /><img src="/assets/images/yin1.gif" /></li>
+    <li><input type="radio" /><img src="/assets/images/yin2.gif" /></li>
+    <li><input type="radio" /><img src="/assets/images/yin3.gif" /></li>
+    <li><input type="radio" /><img src="/assets/images/yin4.gif" /></li>
+    <li><input type="radio" /><img src="/assets/images/yin5.gif" /></li>
+    <li><input type="radio" /><img src="/assets/images/yin6.gif" /></li>
+    <li><input type="radio" /><img src="/assets/images/yin7.gif" /></li>
+    <li><input type="radio" /><img src="/assets/images/yin8.gif" /></li>
+    <div class="clears"></div>
+   </ul>
+  </div><!--zhzhifufangshii/-->
+  <div class="zhifufangshi">
+   <ul class="yinhang">
+    <li><input type="radio" /><img src="/assets/images/yin7.gif" /></li>
+    <li><input type="radio" /><img src="/assets/images/yin8.gif" /></li>
+    <li><input type="radio" /><img src="/assets/images/yin9.gif" /></li>
+    <li><input type="radio" /><img src="/assets/images/yin1.gif" /></li>
+    <li><input type="radio" /><img src="/assets/images/yin2.gif" /></li>
+    <li><input type="radio" /><img src="/assets/images/yin3.gif" /></li>
+    <li><input type="radio" /><img src="/assets/images/yin4.gif" /></li>
+    <li><input type="radio" /><img src="/assets/images/yin5.gif" /></li>
+    <li><input type="radio" /><img src="/assets/images/yin6.gif" /></li>
+    <li><input type="radio" /><img src="/assets/images/yin7.gif" /></li>
+    <li><input type="radio" /><img src="/assets/images/yin8.gif" /></li>
+    <div class="clears"></div>
+   </ul>
+  </div><!--zhzhifufangshii/-->
+  <div class="zhifufangshi">
+   <ul class="yinhang">
+    <li><input type="radio" /><img src="/assets/images/caifutong.jpg" /></li>
+    <div class="clear"></div>
+   </ul>
+  </div><!--zhzhifufangshii/-->
+  <div class="zhifufangshi">
+   <ul class="yinhang">
+    <li><input type="radio" /><img src="/assets/images/zhifubao.jpg" /></li>
+    <div class="clear"></div>
+   </ul>
+  </div><!--zhzhifufangshii/-->
+  <h4 class="orderTitle">购物清单</h4>
+  <table class="orderList">
+    <tr>
+     <th width="20"></th>
+     <th width="430">商品</th>
+     <th width="135">单价</th>
+     <th width="135">数量</th>
+     <th width="135">总金额</th>
+     <th>操作</th>
+    </tr>
+
+    {foreach $cartdata as $v}
+    <tr>
+     <td><input type="checkbox" class="checkbox" checked value="{$v.id}" /></td>
+     <td>
+      <dl>
+       <dt><a href="proinfo.html"><img src="{$v.image|default='/assets/images/pro1.jpg'}" width="85" height="85" /></a></dt>
+       <dd>{$v.title}<br />
+        {if $v.stock > 0 }
+          <span class="red">[有货]</span> {if $v.city} 从{$v.city}发货{/if}</dd>
+        {/if}
+        <div class="clears"></div>
+      </dl>
+     </td>
+     <td><strong class="red">￥{$v.price}</strong></td>
+     <td>
+     <div class="jia_jian">
+      <img src="/assets/images/jian.jpg" width="21" height="25" class="jian" />
+      <input type="text" class="shuliang" name="{$v.id}" value="{$v.num}" />
+      <img src="/assets/images/jia.jpg" width="21" height="25" class="jia" />
+     </div>
+     </td>
+     <td><strong class="red">￥{$v.total}</strong></td>
+     <td><a href="#" class="green">收藏</a><br /><a href="#" class="green">删除</a></td>
+    </tr>
+    {/foreach}
+    
+    <tr>
+     <td colspan="6"><div class="shanchu"><img src="/assets/images/lajio.jpg" /> 全部删除</div></td>
+    </tr>
+   </table><!--orderList/-->
+   <table class="zongjia" align="right">
+    <tr>
+     <td width="120" align="left">商品总价：</td>
+     <td width="60"><strong class="red">+{$total}</strong></td>
+    </tr>
+    <tr>
+     <td width="120" align="left">运费总额：</td>
+     <td><strong class="red">+121.88</strong></td>
+    </tr>
+    <tr>
+     <td width="120" align="left">促销优惠：</td>
+     <td><strong class="red">+341.88</strong></td>
+    </tr>
+    <tr>
+     <td width="120" align="left">合计：</td>
+     <td><strong class="red">+{$total}</strong></td>
+    </tr>
+    <tr>
+     <td colspan="2" style="height:50px;">
+      <a href="#" id="cart"><img src="/assets/images/tijao.png" width="142" height="32" /></a>
+     </td>
+    </tr>
+   </table><!--zongjia/-->
+   <div class="clears"></div>
+  </div><!--cont/-->
+
+  {include file="common/footer" /}

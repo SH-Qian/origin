@@ -1,0 +1,112 @@
+{include file="common/header" /}
+
+</div><!--pntRight/-->
+<div class="clears"></div>
+</div><!--pnt/-->
+<div class="positions">
+  当前位置：<a href="/index.html">首页</a> &gt; <a href="#" class="posCur"  name="add">{$position}</a>
+</div><!--positions/-->
+<div class="cont">
+  <div class="contLeft">
+    <ul class="leftPorNav">
+
+      {foreach $category.cid as $c}
+      <li><a href="/commodity/list/{$c.id}">{$c.name}</a>
+        <div class="chilInPorNav">
+          {foreach $category.aid as $a}
+          {if $c.id == $a.cid}
+          <a href="/commodity/list/{$a.id}">{$a.name}</a>
+          {/if}
+          {/foreach}
+        </div><!--chilLeftNav/-->
+      </li>
+      {/foreach}
+
+    </ul><!--InPorNav/-->
+  </div><!--contLeft/-->
+  <div class="contRight" style="border:0;">
+    <div class="proBox">
+      <div id="tsShopContainer">
+        <div id="tsImgS"><a href="{$data.image}" title="Images" class="MagicZoom" id="MagicZoom"><img width="300"
+              height="300" src="{$data.image}" /></a></div>
+        <div id="tsPicContainer">
+          <div id="tsImgSArrL" onclick="tsScrollArrLeft()"></div>
+          <div id="tsImgSCon">
+            <ul>
+              <li onclick="showPic(0)" rel="MagicZoom" class="tsSelectImg"><img height="42" width="42"
+                  src="{$data.image}" tsImgS="{$data.image}" /></li>
+
+              {foreach $data.images as $k => $v}
+              <li onclick="showPic({$k+1})" rel="MagicZoom"><img height="42" width="42" src="{$v}" tsImgS="{$v}" /></li>
+              {/foreach}
+
+            </ul>
+          </div>
+          <div id="tsImgSArrR" onclick="tsScrollArrRight()"></div>
+        </div>
+        <img class="MagicZoomLoading" width="16" height="16" src="/assets/images/loading.gif" alt="Loading..." />
+        <script src="/assets/js/ShopShow.js"></script>
+      </div><!--tsShopContainer/-->
+      <div class="proBoxRight">
+        <h3 class="proTitle">{$data.title} {$data.unit}</h3>
+        <div>商品编号： {$data.code} </div>
+        <div>会员价：<strong class="red">¥{$data.vipprice}</strong> </div>
+        <div>单位：{$data.unit} </div>
+        <div>库存：
+
+          {if $data.stock > 0 }
+          <strong class="red">[有货] </strong> {if $data.city} 从{$data.city}发货{/if}
+          {else}
+          <strong class="red">[暂时无货] </strong> 
+          {/if}
+
+        </div>
+        <ul class="rongliang" name="{$data.id}">
+          <li>100ml</li>
+          <li>200ml</li>
+          <li>300ml</li>
+          <li>400ml</li>
+          <li>500ml</li>
+          <div class="clears"></div>
+        </ul><!--rongliang/-->
+        <div class="shuliang2">
+          数量： <input class="number" type="text" value="1" />
+        </div><!--shuliang2/-->
+        <div class="gc">
+          <a href="#" id="cart"><img src="/assets/images/goumai.png" width="117" height="36" /></a>&nbsp;&nbsp;
+          <a href="#"><img src="/assets/images/shoucang.png" width="117" height="36" /></a>
+        </div><!--gc/-->
+      </div><!--proRight/-->
+      <div class="clears"></div>
+    </div><!--proBox/-->
+    <ul class="fangyuan">
+      <li>商品描述</li>
+      <li>商品参数</li>
+      <li>商品评论</li>
+      <li>商品晒图</li>
+      <div class="clears"></div>
+    </ul><!--fangyuan/-->
+    <div class="fangList">
+      <div class="fangPar">
+        {$data.description}
+      </div><!--fangPar/-->
+      <img src="/assets/images/ban1.jpg" width="756" height="310" />
+    </div><!--fangList/-->
+    <div class="fangList">
+      {$data.parameter}
+    </div><!--fangList/-->
+    <div class="fangList">
+      商品评论
+    </div><!--fangList/-->
+    <div class="fangList">
+      <img src="/assets/images/rdPro1.jpg" width="132" height="129" /><br /><br />
+      <img src="/assets/images/rdPro2.jpg" width="132" height="129" /><br /><br />
+      <img src="/assets/images/rdPro3.jpg" width="132" height="129" /><br /><br />
+      <img src="/assets/images/rdPro4.jpg" width="132" height="129" /><br /><br />
+      <img src="/assets/images/rdPro5.jpg" width="132" height="129" /><br /><br />
+    </div><!--fangList/-->
+  </div><!--contRight/-->
+  <div class="clears"></div>
+</div><!--cont/-->
+
+{include file="common/footer" /}

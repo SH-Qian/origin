@@ -1,0 +1,94 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>{$title}</title>
+<link type="text/css" href="/assets/css/commodity.css" rel="stylesheet" />
+<script type="text/javascript" src="/assets/js/jquery.js"></script>
+<script type="text/javascript" src="/assets/js/commodity.js"></script>
+<script src="/assets/js/wb.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+$(function(){
+	$("#kinMaxShow").kinMaxShow();
+  $(".vipNav dd:first").show();
+
+});
+
+</script>
+</head>
+
+<body>
+ <div class="mianCont">
+  <div class="top">
+{if empty($Think.session.uid)}
+   <span>您好！欢迎来到SH商城 请&nbsp;<a href="/index/user/login">[登录]</a>&nbsp;<a href="/index/user/register.html">[注册]</a></span>
+{else}
+   <span class="topRight">
+    <!-- <a href="vip.html">我的17</a>&nbsp;| 
+    <a href="order.html">我的订单</a>&nbsp;| 
+    <a href="login.html">会员中心</a>&nbsp;|
+    <a href="contact.html">联系我们</a> -->
+    <a href="/index/user/index.html">我的SH</a>&nbsp;| 
+    <a href="/index/user/order.html">我的订单</a>&nbsp;| 
+    <a href="/index/user/index.html">会员中心</a>&nbsp;|
+    <a href="/index/contact.html">联系我们</a>
+   </span>
+{/if}
+  </div><!--top/-->
+  <div class="lsg">
+   <h1 class="logo"><a href="/index.html"><img src="/assets/images/logo.png" width="217" height="90" /></a></h1>
+   <form action="#" method="get" class="subBox">
+    <div class="subBoxDiv">
+     <input type="text" class="subLeft" />
+     <input type="image" src="/assets/images/subimg.png" width="63" height="34" class="sub" />
+     <div class="hotWord">
+      热门搜索：
+      <a href="proinfo.html">冷饮杯</a>&nbsp;
+      <a href="proinfo.html">热饮杯</a> &nbsp;
+      <a href="proinfo.html">纸杯</a>&nbsp;
+      <a href="proinfo.html">纸巾</a>  &nbsp;
+      <a href="proinfo.html">纸巾</a> &nbsp;
+      <a href="proinfo.html">纸杯</a>&nbsp;
+     </div><!--hotWord/-->
+    </div><!--subBoxDiv/-->
+   </form><!--subBox/-->
+   <div class="gouwuche">
+    <div class="gouCar">
+     <img src="/assets/images/gouimg.png" width="19" height="20" style="position:relative;top:6px;" />&nbsp;|&nbsp;
+     <strong class="red">{$cart['number']}</strong>&nbsp;件&nbsp;|
+     <strong class="red">￥ {$cart['price']}</strong> 
+     <a href="/commodity/cart.html">去结算</a> <img src="/assets/images/youjian.jpg" width="5" height="8" />    
+    </div><!--gouCar/-->
+    <div class="myChunlv">
+     <a href="/index/user/index.html"><img src="/assets/images/mychunlv.jpg" width="112" height="34" /></a>
+    </div><!--myChunlv/-->
+   </div><!--gouwuche/-->
+  </div><!--lsg/-->
+  <div class="pnt">
+   <div class="pntLeft">
+    <h2 class="Title">所有商品分类</h2>
+    <ul class="InPorNav" {if $position} style="display: none;" {/if} >
+      
+    {foreach $category.cid as $c}
+     <li><a href="/commodity/list/{$c.id}">{$c.name}</a>
+      <div class="chilInPorNav">
+        {foreach $category.aid as $a}
+        {if $c.id == $a.cid}
+        <a href="/commodity/list/{$a.id}">{$a.name}</a>
+        {/if}
+        {/foreach}
+      </div><!--chilLeftNav/-->
+     </li>
+    {/foreach}
+
+    </ul><!--InPorNav/-->
+   </div><!--pntLeft/-->
+   <div class="pntRight">
+    <ul class="nav">
+     <li class="navCur"><a href="/index.html">商城首页</a></li>
+     <li><a href="/commodity/list">促销中心</a></li>
+     <li><a href="/index/user/index.html">会员中心</a></li>
+     <li><a href="/help.html">帮助中心</a></li>
+     <div class="clears"></div>
+     <div class="phone">TEL：021-12345678</div>
+    </ul><!--nav/-->

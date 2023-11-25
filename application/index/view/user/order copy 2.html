@@ -1,0 +1,78 @@
+{include file="common/header" /}
+
+</div><!--pntRight/-->
+<div class="clears"></div>
+</div><!--pnt/-->
+<div class="positions">
+  {:hook('user_sidenav_before')}
+    <!-- <ul class="list-group">
+        <li class="list-group-heading">{:__('Member center')}</li>
+        <li class="list-group-item {:check_nav_active('user/index')}"> <a href="{:url('user/index')}"><i class="fa fa-user-circle fa-fw"></i> {:__('User center')}</a> </li>
+        <li class="list-group-item {:check_nav_active('user/order')}"> <a href="{:url('user/order')}"><i class="fa fa-user-circle fa-fw"></i> {:__('我的订单')}</a> </li>
+        <li class="list-group-item {:check_nav_active('user/profile')}"> <a href="{:url('user/profile')}"><i class="fa fa-user-o fa-fw"></i> {:__('Profile')}</a> </li>
+        <li class="list-group-item {:check_nav_active('user/changepwd')}"> <a href="{:url('user/changepwd')}"><i class="fa fa-key fa-fw"></i> {:__('Change password')}</a> </li>
+        <li class="list-group-item {:check_nav_active('user/logout')}"> <a href="{:url('user/logout')}"><i class="fa fa-sign-out fa-fw"></i> {:__('Sign out')}</a> </li>
+    </ul>
+    {:hook('user_sidenav_after')} -->
+
+  当前位置：<a href="/index.html">首页</a> &gt; <a href="{:url('user/index')}">{:__('Member center')}</a>
+  &gt; <a href="{:url('user/order')}" class="posCur">{:__('我的订单')}</a>
+</div><!--positions/-->
+<div class="cont">
+  <div class="contLeft" id="contLeft">
+    <h3 class="leftTitle">会员中心</h3>
+    <dl class="helpNav vipNav">
+      <dt>我的主页</dt>
+      <dd>
+        <a href="{:url('user/index')}">{:__('User center')}</a>
+        <a href="{:url('user/index')}" class="vipCur">{:__('我的订单')}</a>
+      </dd>
+      <dt>账户设置</dt>
+      <dd>
+        <a href="{:url('user/profile')}">{:__('Profile')}</a>
+        <a href="{:url('user/changepwd')}">{:__('Change password')}</a>
+        <a href="{:url('user/address')}">{:__('收货地址')}</a>
+      </dd>
+      <dt>客户服务</dt>
+      <dd>
+        <a href="vipExit.html">网站使用条款</a>
+        <a href="vipTuihuo.html">网站免责声明</a>
+        <a href="message.html">在线留言</a>
+      </dd>
+
+
+    </dl><!--helpNav/-->
+  </div><!--contLeft/-->
+  <div class="contRight">
+    <h1 class="vipName"><span>用户名：</span>{$username}</h1>
+    <h2 class="oredrName">
+      我的订单 <span style="margin-left:40px;">待发货 <span class="red">{$d_count}</span> </span>
+      <span>待收货 <span class="red">{$y_count}</span></span>
+    </h2>
+    <table class="vipOrder">
+
+      {foreach $ord_data as $v}
+      <tr>
+        <td><a href="/order/{$v.id}"><img src="{$v.image}" width="60" height="55"></a></td>
+        <td>{$username}</td>
+        <td>￥{$v.price}<br />{$v.pay_type}</td>
+        <td>{$v.createtime|date='Y-m-d H:i:s',###}</td>
+        <td><a href="success.html"><strong>{$v.status}</strong></a></td>
+        <td><a href="/order/{$v.id}">查看</a></td>
+      </tr>
+      {/foreach}
+
+    </table><!--vipOrder/-->
+    <br />
+    <div class="scott"><span class="disabled">
+        <!-- < </span><span class="current">1</span><a href="#?page=2">2</a><a href="#?page=3">3</a><a
+            href="#?page=4">4</a><a href="#?page=5">5</a><a href="#?page=6">6</a><a href="#?page=7">7</a>...<a
+            href="#?page=199">199</a><a href="#?page=200">200</a><a href="#?page=2"> > </a> -->
+          {$pager}
+          </div>
+    <br />
+  </div><!--contRight/-->
+  <div class="clears"></div>
+</div><!--cont/-->
+
+{include file="common/footer" /}

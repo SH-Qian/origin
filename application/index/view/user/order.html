@@ -1,0 +1,72 @@
+{include file="common/header" /}
+
+</div><!--pntRight/-->
+<div class="clears"></div>
+</div><!--pnt/-->
+<div class="positions">
+  当前位置：<a href="/index.html">首页</a> &gt; <a href="{:url('user/index')}">{:__('Member center')}</a>
+  &gt; <a href="{:url('user/order')}" class="posCur"  name="del">{:__('我的订单')}</a>
+</div><!--positions/-->
+<div class="cont">
+  <div class="contLeft" id="contLeft">
+    <h3 class="leftTitle">会员中心</h3>
+    <dl class="helpNav vipNav">
+      <dt>我的主页</dt>
+      <dd>
+        <a href="{:url('user/index')}">{:__('User center')}</a>
+        <a href="{:url('user/order')}" class="vipCur">{:__('我的订单')}</a>
+      </dd>
+      <dt>账户设置</dt>
+      <dd>
+        <a href="{:url('user/profile')}">{:__('Profile')}</a>
+        <a href="{:url('user/changepwd')}">{:__('Change password')}</a>
+        <a href="{:url('user/address')}">{:__('收货地址')}</a>
+      </dd>
+      <dt>客户服务</dt>
+      <dd>
+        <a href="vipExit.html">网站使用条款</a>
+        <a href="vipTuihuo.html">网站免责声明</a>
+        <a href="message.html">在线留言</a>
+      </dd>
+
+
+    </dl><!--helpNav/-->
+  </div><!--contLeft/-->
+  <div class="contRight">
+    <h1 class="vipName"><span>用户名：</span>{$username}</h1>
+    <h2 class="oredrName">
+      我的订单 <span style="margin-left:40px;">待发货 <span class="red">{$number['dfh']}</span> </span>
+      <span>待收货 <span class="red">{$number['dsh']} </span>待支付 <span class="red">{$number['dzf']}</span></span>
+    </h2>
+    <table class="vipOrder">
+
+      {foreach $ord_data as $v}
+      <tr>
+        <td><a href="/order/{$v.id}"><img src="{$v.image}" width="60" height="55"></a></td>
+        <td>{$username}</td>
+        <td>￥{$v.price}<br />{$v.pay_type}</td>
+        <td>{$v.createtime|date='Y-m-d H:i:s',###}</td>
+
+        {if $v.status == '0'}
+        <td><a href="#" id="qxzf"><strong class="qxzf" name="{$v.id}">{$v.status_type}/取消支付</strong></a></td>
+        {else}
+        <td><a href="/order/{$v.id}.html"><strong>{$v.status_type}</strong></a></td>
+        {/if}
+        <td><a href="/order/{$v.id}">查看</a></td>
+      </tr>
+      {/foreach}
+
+    </table><!--vipOrder/-->
+    <br />
+    <div class="scott"><span class="disabled">
+        <!-- < </span><span class="current">1</span><a href="#?page=2">2</a><a href="#?page=3">3</a><a
+            href="#?page=4">4</a><a href="#?page=5">5</a><a href="#?page=6">6</a><a href="#?page=7">7</a>...<a
+            href="#?page=199">199</a><a href="#?page=200">200</a><a href="#?page=2"> > </a> -->
+          {$pager}
+          </div>
+    <br />
+  </div><!--contRight/-->
+  <div class="clears"></div>
+</div><!--cont/-->
+
+{include file="common/footer" /}

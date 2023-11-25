@@ -1,0 +1,66 @@
+{include file="common/header" /}
+
+   </div><!--pntRight/-->
+   <div class="clears"></div>
+  </div><!--pnt/-->
+  <div class="positions">
+   当前位置：<a href="/index.html">首页</a> &gt; <a href="/commodity/cart.html" class="posCur" name="update">{$position}</a>
+  </div><!--positions/-->
+  <div class="cont">
+   <div class="carImg"><img src="/assets/images/car1.jpg" width="951" height="27" /></div>
+   <table class="orderList">
+    <tr>
+     <th width="20"></th>
+     <th width="430">商品</th>
+     <th width="135">单价</th>
+     <th width="135">数量</th>
+     <th width="135">总金额</th>
+     <th>操作</th>
+    </tr>
+
+    {foreach $cartdata as $v}
+    <tr>
+     <td><input type="checkbox" class="checkbox" checked value="{$v.id}" /></td>
+     <td>
+      <dl>
+       <dt><a href="/commodity/detail/{$v.cid}"><img src="{$v.image|default='/assets/images/pro1.jpg'}" width="85" height="85" /></a></dt>
+       <dd>{$v.title}<br />
+
+        {if $v.stock > 0 }
+          <span class="red">[有货]</span> {if $v.city} 从{$v.city}发货{/if}</dd>
+        {/if}
+ 
+       <div class="clears"></div>
+      </dl>
+     </td>
+     <td><strong class="red">￥{$v.price}</strong></td>
+     <td>
+     <div class="jia_jian">
+      <img src="/assets/images/jian.jpg" width="21" height="25" class="jian" />
+      <input type="text" class="shuliang" name="{$v.id}" value="{$v.num}" />
+      <img src="/assets/images/jia.jpg" width="21" height="25" class="jia" />
+     </div>
+     </td>
+     <td><strong class="red">￥{$v.total}</strong></td>
+     <td><a href="#" class="green">收藏</a><br /><a href="#" class="green">删除</a></td>
+    </tr>
+    {/foreach}
+    
+    <tr>
+     <td colspan="6"><div class="shanchu"><img src="/assets/images/lajio.jpg" /> 全部删除</div></td>
+    </tr>
+   </table><!--orderList/-->
+   <div class="zongji">
+    总计(不含运费)：<strong class="red">￥{$total}</strong>
+   </div><!--zongji/-->
+   <div class="jiesuan">
+
+    <a href="/commodity/list" class="jie_1">继续购物&gt;&gt;</a>
+    <a href="#" class="jie_2" id="cart" >立即结算&gt;&gt;</a>
+
+    <div class="clears"></div>
+   </div><!--jiesuan/-->
+   <div class="clears"></div>
+  </div><!--cont/-->
+
+{include file="common/footer" /}
