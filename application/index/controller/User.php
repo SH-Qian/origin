@@ -182,18 +182,24 @@ class User extends Frontend
     public function order($id = '')
     {
         $cart = get_cart();
-        // print_r($this->lock('test'));die;
+        $name = "";
+        $result =$this->lock($name);
+        // 加锁成功，执行业务逻辑
+        try {
+            if ($result) {
 
-        // 加锁成功，执行业务逻辑       
-        if ($this->lock('test', 100)) {
+                if ($cart) {
+                    echo '1111';
+                }
 
-            if ($cart) {
-                echo '1111';
+                // 业务逻辑完成，解锁
+                $lock = $this->unlock('test');
             }
-
-            // 业务逻辑完成，解锁
-            $lock = $this->unlock('test');
-        }
+            
+        } catch (\Throwable $th) {
+            //throw $th;
+        }       
+            
 
 
         if (!empty($id)) {
