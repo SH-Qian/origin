@@ -184,6 +184,9 @@ class User extends Frontend
         $cart = get_cart();
         $name = "";
         $result =$this->lock($name);
+        $result =$this->lock($name);
+        $result =$this->lock($name);
+        $result =$this->lock($name);
         // 加锁成功，执行业务逻辑
         try {
             if ($result) {
@@ -195,7 +198,7 @@ class User extends Frontend
                 // 业务逻辑完成，解锁
                 $lock = $this->unlock('test');
             }
-            
+
         } catch (\Throwable $th) {
             //throw $th;
         }       
