@@ -165,14 +165,9 @@ class commodity extends Frontend
             $this->error('请先登录。', '/index/user/login');
         }
 
-        // 判断库存剩余是否充足
-        
-
         // 判断是否post
-        if (!$this->request->isPost()) {
+        if ($this->request->isPost()) {
             $art = $this->request->post('art');
-            $art = 'submit';
-            // var_dump($art);die;
 
             switch ($art) {
                 case 'add':// 添加到购物车
@@ -207,7 +202,7 @@ class commodity extends Frontend
                 case 'update':// 修改购物车
 
                     $data['id'] = explode(',',trim($this->request->post('id'),','));
-                    $data['num'] = explode(',',trim($this->request->post('num'),','));
+                    $data['num'] = explode(',',trim($this->request->post('num'),','));                    
                     
                     foreach ($data['id'] as $k => $v) {
                         
@@ -215,11 +210,10 @@ class commodity extends Frontend
                         $old_data=DB::name('cart')->where(['uid'=>$uid,'id'=>$v])->find();
                         if (!empty($old_data)){
                             // 有就修改相应数量
-                            $update=DB::name('cart')->where(['uid'=>$uid,'id'=>$v])->update(['num'=>$v->num,'check'=>1]);
+                            $update=DB::name('cart')->where(['uid'=>$uid,'id'=>$v])->update(['num'=>$data['num'][$k],'check'=>1]);
                         }
                     }
-
-
+                    
                     $data['code']='1';
                     $data['msg']='修改成功！';
 
@@ -230,9 +224,9 @@ class commodity extends Frontend
                     $data['id'] = explode(',',trim($this->request->post('id'),','));
                     $data['num'] = explode(',',trim($this->request->post('num'),','));
 
-                    $data['id'] = explode(',',trim($data['id'],','));
-                    $data['num'] = explode(',',trim($data['num'],','));
-
+                    // $data['id'] = explode(',',trim($data['id'],','));
+                    // $data['num'] = explode(',',trim($data['num'],','));
+                    
                     // 判断库存状态,写入用户信息
                     $store = $this->store(json_encode($data));
 

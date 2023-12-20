@@ -112,6 +112,9 @@ class Frontend extends Controller
         $config = array_merge($config, Config::get("view_replace_str"));
 
         Config::set('upload', array_merge(Config::get('upload'), $upload));
+        
+        // 初始化redis
+        get_redis();
 
         // 配置信息后
         Hook::listen("config_init", $config);

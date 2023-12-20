@@ -20,13 +20,6 @@ class Index extends Frontend
     {
         $category =get_menu();
         $cart=get_cart();
-        // $old_data=DB::name('commodity')->field('id')->select();
-        // // foreach ($old_data as $key => $value) {
-        // //     DB::name('commodity')->where(['id'=>$value['id']])->update(['code'=>build_only_no()]);
-        // // }
-        // get_redis();
-
-        // get_redis();
         
         // 首页商品5个
         $banner=DB::name('commodity')->field('id,image')->where(['flag'=>'index'])->order('updatetime','desc')->paginate(5);

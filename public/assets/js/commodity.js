@@ -196,6 +196,7 @@ $(function () {
 					var hostname = 'http://'+$(location).attr('hostname')+'/commodity/cart/check';
 					$(location).attr('href',hostname);
 				}else{
+					console.log(data);
 					alert(data.msg);
 				}
 				
