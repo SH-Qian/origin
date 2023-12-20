@@ -3,6 +3,7 @@
 // 公共助手函数
 
 use Symfony\Component\VarExporter\VarExporter;
+use think\Cache;
 use think\exception\HttpResponseException;
 use think\Response;
 use think\Session;
@@ -171,12 +172,7 @@ if (!function_exists('copydirs')) {
         if (!is_dir($dest)) {
             mkdir($dest, 0755, true);
         }
-        foreach (
-            $iterator = new RecursiveIteratorIterator(
-                new RecursiveDirectoryIterator($source, RecursiveDirectoryIterator::SKIP_DOTS),
-                RecursiveIteratorIterator::SELF_FIRST
-            ) as $item
-        ) {
+        foreach ($iterator = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($source, RecursiveDirectoryIterator::SKIP_DOTS), RecursiveIteratorIterator::SELF_FIRST) as $item) {
             if ($item->isDir()) {
                 $sontDir = $dest . DS . $iterator->getSubPathName();
                 if (!is_dir($sontDir)) {
@@ -524,10 +520,31 @@ if (!function_exists('get_menu')) {
     function get_menu()
     {
         // 商品分类 cid 一级 aid 二级
-        $category['cid']=DB::name('category')->field('id,name')->where('pid','=','107')->where('cid','=',0)->order('updatetime','desc')->select();
-        $category['aid']=DB::name('category')->field('id,name,cid')->where('pid','=',107)->where('cid','>',0)->select();
-        
+        $category['cid'] = DB::name('category')->field('id,name')->where('pid', '=', '107')->where('cid', '=', 0)->order('updatetime', 'desc')->select();
+        $category['aid'] = DB::name('category')->field('id,name,cid')->where('pid', '=', 107)->where('cid', '>', 0)->select();
+
         return $category;
+    }
+}
+
+if (!function_exists('get_convert_type')) {
+
+    /**
+     * 类型转换
+     * @return array 变量
+     */
+    function get_convert_type($value = NULL)
+    {
+        if (false) {
+            # code...
+        }else{
+            $result='';
+            foreach ($value as $k => $v) {
+                echo $v.',';
+            }
+        }
+
+        return $result;
     }
 }
 
@@ -541,17 +558,92 @@ if (!function_exists('get_cart')) {
     {
         $uid = Session::get('uid');
         // 购物车数据
-        $cart['number']=DB::name('cart')->where(['uid'=>$uid,'status'=> 0])->count();
-        $data=DB::name('commodity')->alias('c')->leftJoin('cart a','a.cid = c.id')->field('c.price,a.num')->where(['a.uid'=>$uid,'a.status'=> 0])->select();
+        $cart['number'] = DB::name('cart')->where(['uid' => $uid, 'status' => 0])->count();
+        $data = DB::name('commodity')->alias('c')->leftJoin('cart a', 'a.cid = c.id')->field('c.price,a.num')->where(['a.uid' => $uid, 'a.status' => 0])->select();
 
         foreach ($data as $k => $v) {
-            $data[$k]['total']=$v['num']*$v['price'];
+            $data[$k]['total'] = $v['num'] * $v['price'];
         }
-        $total=array_sum(array_column($data,'total'));
-        $cart['price']=$total;
-        
-        // print_r($cart);die;
-        
+        $total = array_sum(array_column($data, 'total'));
+        $cart['price'] = $total;
+
         return $cart;
+    }
+}
+
+if (!function_exists('get_redis')) {
+
+    /**
+     * redis 操作
+     */
+    function get_redis($type = null)
+    {
+        switch ($type) {
+            case 'value':
+                # code...
+
+                break;
+
+            default:
+                /**
+                 * redis 初始化操作
+                 * 初始化 store库存hash、用户排队list、已购用户list ,如果已存在直接返回 相关list
+                 */
+
+                // $RedisStore = Cache::store("redis")->list("StoreList","lrange",['0','-1']);
+                // print_r($RedisStore);die;
+
+                // 判断 StoreList 是否存在,不存在初始化 StoreList
+                // $StoreList = Cache::store("redis")->list("StoreList","llen");
+                // if ($StoreList == 0) {
+                //     // StoreList
+                //     $result = DB::name('commodity')->field('code,stock')->where(['switch' => '0', 'status' => 'normal'])->where('state', '>', 0)->order('state', 'asc')->select();
+                //     foreach ($result as $k => $v) {
+
+                //         for ( $i=0 ; $i < $v['stock'] ; $i++ ) { 
+                //             // 生成StoreList
+                //             $StoreList = Cache::store("redis")->list('StoreListCode:'.$v['code'],"rpush",$i);
+                //         }
+                        
+                //     }
+
+                //     // 生成StoreList
+                //     // $StoreList = Cache::store("redis")->list("StoreList","rpush",$res);
+                // }
+
+                $StoreNum = Cache::store("redis")->hash("StoreNum","hgetall");
+                // print_r($StoreNum);die;
+                
+                if (empty($StoreNum)) {
+                    // StoreNum
+                    $result = DB::name('commodity')->field('code,stock')->where(['switch' => '0', 'status' => 'normal'])->where('state', '>', 0)->order('state', 'asc')->select();
+                    
+                    foreach ($result as $k => $v) {
+                        // 生成StoreNum
+                        $StoreNum = Cache::store("redis")->hash('StoreNum',"hsetnx",'code:'.$v['code'],$v['stock']);
+                    }
+
+                    // 生成StoreNum
+                    // $StoreNum = Cache::store("redis")->list("StoreNum","rpush",$res);
+                }
+                
+        }
+
+
+
+    }
+
+}
+
+if (!function_exists('build_only_no')) {
+
+    /**
+     * 生成唯一编号
+     * @return string
+     */
+    function build_only_no(){
+        
+        return "H".substr(sha1(time()),6,4).str_pad(mt_rand(1, 999999), 6, '0', STR_PAD_LEFT).substr(sha1(uniqid()),-4);        
+
     }
 }

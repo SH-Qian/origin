@@ -6,6 +6,7 @@ use app\common\controller\Frontend;
 use think\Session;
 use think\Db;
 use think\Cache;
+use app\index\controller\commodity;
 
 class Index extends Frontend
 {
@@ -19,15 +20,14 @@ class Index extends Frontend
     {
         $category =get_menu();
         $cart=get_cart();
-        // $test='asd';
+        // $old_data=DB::name('commodity')->field('id')->select();
+        // // foreach ($old_data as $key => $value) {
+        // //     DB::name('commodity')->where(['id'=>$value['id']])->update(['code'=>build_only_no()]);
+        // // }
+        // get_redis();
 
-        // $cart = Cache::store('redis')->set('cart',$cart,3600);
-        // $category = Cache::store('redis')->set('category',$category,3600);
-        // $test = Cache::store('redis')->get('cart');
-        // $test2 = Cache::store('redis')->get('category');
-        // var_dump($test);
-        // var_dump($test2);die;
-
+        // get_redis();
+        
         // 首页商品5个
         $banner=DB::name('commodity')->field('id,image')->where(['flag'=>'index'])->order('updatetime','desc')->paginate(5);
         // 推荐商品5个

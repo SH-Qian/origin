@@ -13,7 +13,6 @@ use think\Hook;
 use think\Session;
 use think\Validate;
 use think\Db;
-use think\Cache;
 
 // use think\Cache\Driver\Redis;
 
@@ -178,33 +177,14 @@ class User extends Frontend
             return $this->view->fetch();
         }
 
-    } */
+    }  */
+
+    /**
+     * 我的订单
+     */
     public function order($id = '')
     {
         $cart = get_cart();
-        $name = "";
-        $result =$this->lock($name);
-        $result =$this->lock($name);
-        $result =$this->lock($name);
-        $result =$this->lock($name);
-        // 加锁成功，执行业务逻辑
-        try {
-            if ($result) {
-
-                if ($cart) {
-                    echo '1111';
-                }
-
-                // 业务逻辑完成，解锁
-                $lock = $this->unlock('test');
-            }
-
-        } catch (\Throwable $th) {
-            //throw $th;
-        }       
-            
-
-
         if (!empty($id)) {
 
             $order_details = DB::name('orders')->alias('o')->leftJoin('order_details d', 'd.oid = o.id')->field('d.id,d.title,o.order_code,o.company,o.status,o.userdata,o.pay_type,o.createtime,d.price,d.image')->where(['d.id' => $id])->find();
@@ -375,98 +355,7 @@ class User extends Frontend
         $redis->del($key);
 
     }
-
-    /**
-     * redis 加锁
-     * @param  string  $name           锁的标识名
-     * @param  integer $timeout        循环获取锁的等待超时时间，在此时间内会一直尝试获取锁直到超时，为0表示失败后直接返回不等待
-     * @param  integer $expire         当前锁的最大生存时间(秒)，必须大于0，如果超过生存时间锁仍未被释放，则系统会自动强制释放
-     * @param  integer $waitIntervalUs 获取锁失败后挂起再试的时间间隔(微秒)
-     * @return boolean                 
-     */
-    private function lock($name, $expire = 15, $timeout = 1, $waitIntervalUs = 100000)
-    {
-        if (is_null($name)) return false;
-        // 获取当前时间
-        $now = time();
-        
-        // 获取锁失败时等待超时时刻
-        $timeoutAT = $now + $timeout;
-        // 获取锁最大生存时刻
-        $expireAT = $now + $expire;
-        //锁名
-        $redisKey = "Lock:{$name}"; 
-
-        while (true) {
-            // 将rediskey的最大生存时刻存到redis里，过了这个时刻该锁会被自动释放
-
-            $script = <<<LUA
-            local key = KEYS[1];
-            local value = ARGV[2];
-            local expire = ARGV[3];
-            local setnx = redis.call('SETNX',key,value);
-            if (setnx==1) then
-                local expire = redis.call('EXPIRE',key,expire);
-                return expire
-            else
-                return false
-            end
-            LUA;
-            // 未用-随机生成字符串
-            // $expireAT=session_create_id();
-
-            $result = Cache::store('redis')->eval($script,[$redisKey,null],[$expireAT, $expire]);
-
-            if ($result) { //记录加锁客户端的ID
-                $this->lockID[$name] = $expireAT;
-                return true;
-            }
-            // 如果锁存在
-            // 以秒为单位，返回 key 的剩余生存时间。
-            $ttl = Cache::store('redis')->ttl($redisKey);
-
-            /*****循环请求锁部分*****/
-            //如果没设置锁失败的等待时间 或者 已超过最大等待时间了，那就退出
-            if ($timeout<=0 || $timeoutAT < microtime(true)) break;
-            //隔 $waitIntervalUs 后继续 请求
-            usleep($waitIntervalUs);
-            
-        }
-
-        return false;
-    }
-
-    /**
-     * redis+lua 解锁
-     */
-    private function unlock($name)
-    {
-
-
-        if (isset($this->lockID[$name])) {
-            
-
-            $script = <<<LUA
-            local key = KEYS[1]
-            local value = ARGV[1]
-            if(redis.call('get',key)==value)
-            then
-            return redis.call('del',key)
-            end
-            LUA;
-            //锁名
-            $redisKey = "Lock:{$name}"; 
-
-            $result = Cache::store('redis')->eval($script, $redisKey, $this->lockID[$name]);
-
-            return $result;
-        }
-
-        return false;
-    }
-
-
-
+    
     /**
      * 注册会员
      */

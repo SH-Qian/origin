@@ -17,6 +17,7 @@ class Commodity extends Backend
      * @var \app\admin\model\commodity\Commodity
      */
     protected $model = null;
+    protected $searchFields = 'id,code,title';
 
     public function _initialize()
     {
@@ -25,6 +26,75 @@ class Commodity extends Backend
         $this->view->assign("flagList", $this->model->getFlagList());
         $this->view->assign("statusList", $this->model->getStatusList());
         $this->view->assign("stateList", $this->model->getStateList());
+    }
+
+    /**
+     * 查看
+     *
+     * @return string|Json
+     * @throws \think\Exception
+     * @throws DbException
+     */
+    public function index()
+    {
+        //设置过滤方法
+        $this->request->filter(['strip_tags', 'trim']);
+        if (false === $this->request->isAjax()) {
+            return $this->view->fetch();
+        }
+
+        //如果发送的来源是 Selectpage，则转发到 Selectpage
+        if ($this->request->request('keyField')) {
+            return $this->selectpage();
+        }
+        [$where, $sort, $order, $offset, $limit] = $this->buildparams();
+        $list = $this->model
+            ->where($where)
+            ->order($sort, $order)
+            ->paginate($limit);
+        $result = ['total' => $list->total(), 'rows' => $list->items()];
+        return json($result);
+    }
+
+    /**
+     * 商品添加
+     *
+     * @return string
+     * @throws \think\Exception
+     */
+    public function add()
+    {
+        if (false === $this->request->isPost()) {
+            return $this->view->fetch();
+        }
+        $params = $this->request->post('row/a');
+        if (empty($params)) {
+            $this->error(__('Parameter %s can not be empty', ''));
+        }
+        $params = $this->preExcludeFields($params);
+
+        if ($this->dataLimit && $this->dataLimitFieldAutoFill) {
+            $params[$this->dataLimitField] = $this->auth->id;
+        }
+        $result = false;
+        Db::startTrans();
+        try {
+            //是否采用模型验证
+            if ($this->modelValidate) {
+                $name = str_replace("\\model\\", "\\validate\\", get_class($this->model));
+                $validate = is_bool($this->modelValidate) ? ($this->modelSceneValidate ? $name . '.add' : $name) : $this->modelValidate;
+                $this->model->validateFailException()->validate($validate);
+            }
+            $result = $this->model->allowField(true)->save($params);
+            Db::commit();
+        } catch (ValidateException|PDOException|Exception $e) {
+            Db::rollback();
+            $this->error($e->getMessage());
+        }
+        if ($result === false) {
+            $this->error(__('No rows were inserted'));
+        }
+        $this->success();
     }
 
 

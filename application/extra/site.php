@@ -15,18 +15,19 @@ return array (
   'fixedpage' => 'dashboard',
   'categorytype' => 
   array (
-    'default' => 'Default',
-    'page' => 'Page',
-    'article' => 'Article',
+    'default' => '默认',
+    'page' => '单页',
+    'article' => '文章',
     'test' => 'Test',
+    'papercup' => '纸杯',
   ),
   'configgroup' => 
   array (
-    'basic' => 'Basic',
-    'email' => 'Email',
-    'dictionary' => 'Dictionary',
-    'user' => 'User',
-    'example' => 'Example',
+    'basic' => '基础配置',
+    'email' => '邮件配置',
+    'dictionary' => '字典配置',
+    'user' => '会员配置',
+    'example' => '示例分组',
   ),
   'mail_type' => '1',
   'mail_smtp_host' => 'smtp.qq.com',
@@ -37,8 +38,8 @@ return array (
   'mail_from' => '10000@qq.com',
   'attachmentcategory' => 
   array (
-    'category1' => 'Category1',
-    'category2' => 'Category2',
-    'custom' => 'Custom',
+    'category1' => '分类一',
+    'category2' => '分类二',
+    'custom' => '自定义',
   ),
 );
