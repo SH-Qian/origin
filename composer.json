@@ -1,17 +1,16 @@
 {
-    "name": "karsonzhang/fastadmin",
+    "name": "shqian/fasc",
     "description": "the fastest admin framework",
     "type": "project",
     "keywords": [
         "fastadmin",
         "thinkphp"
     ],
-    "homepage": "https://www.fastadmin.net/",
     "license": "Apache-2.0",
     "authors": [
         {
-            "name": "Karson",
-            "email": "karson@fastadmin.net"
+            "name": "SH-Qian",
+            "email": "1319948604@qq.com"
         }
     ],
     "require": {
@@ -33,12 +32,20 @@
         "txthinking/mailer": "^2.0"
     },
     "config": {
-        "preferred-install": "dist"
+        "preferred-install": "dist",
+        "allow-plugins": {
+            "topthink/think-installer": true,
+            "easywechat-composer/easywechat-composer": true
+        }
     },
     "repositories": [
         {
-            "type": "git",
-            "url": "https://gitee.com/fastadminnet/framework.git"
+            "type": "composer",
+            "url": "https://mirrors.aliyun.com/composer/"
+        },
+        {
+            "type": "composer",
+            "url": "https://mirrors.tencent.com/composer/"
         }
     ]
 }
