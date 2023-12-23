@@ -320,7 +320,8 @@ class commodity extends Frontend
 
                     // 取出受保护的数据
                     $data=(array)$data;
-                    $data=json_decode($data["\0*\0data"]);
+                    $data=json_decode($data[0]);
+                    // $data=json_decode($data["\0*\0data"]);
                     // print_r($value);die;
                     // break; 
 

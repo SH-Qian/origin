@@ -756,6 +756,19 @@ class Query
     }
 
     /**
+     * LEFT JOIN
+     * @access public
+     * @param  mixed  $join      关联的表名
+     * @param  mixed  $condition 条件
+     * @param  array  $bind      参数绑定
+     * @return $this
+     */
+    public function leftJoin($join, $condition = null, $bind = [])
+    {
+        return $this->join($join, $condition, 'LEFT');
+    }
+
+    /**
      * 获取Join表名及别名 支持
      * ['prefix_table或者子查询'=>'alias'] 'prefix_table alias' 'table alias'
      * @access public
